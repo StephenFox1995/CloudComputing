@@ -13,9 +13,7 @@ response = urllib2.urlopen('http://ec2-52-30-7-5.eu-west-1.compute.amazonaws.com
 html=response.read()
 
 result = html.split(':')
-
-#print (result[0])
-#print (result[1])
+print(result)
 
 access_key_id = result[0]
 secret_access_key = result[1]
@@ -24,15 +22,12 @@ secret_access_key = result[1]
 # Set up a connection to the AWS service.
 conn = boto.sqs.connect_to_region("eu-west-1", aws_access_key_id=access_key_id, aws_secret_access_key=secret_access_key)
 
-#conn.delete_queue(sys.argv[1])
 queue_name = sys.argv[1]
 # Get a list of the queues that exists and then print the list out
 rs = conn.get_queue(queue_name)
-# Get a list of the queues that exists and then print the list out
-#rs = conn.get_all_queues()
 
 rs.set_message_class(Message)		
 m = Message()
 m.set_body(sys.argv[2])
 rs.write(m)
-
+print("Written to queue!");

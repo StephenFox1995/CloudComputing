@@ -19,7 +19,7 @@ q_name = sys.argv[1]
 
 q = conn.get_queue(q_name)
 
-msg_tot = q.count()
+m = q.read()
+str = m.get_body()
 
-print ("> Messages in the queue: " + str(msg_tot))
-
+print ("> Message read: " + str)

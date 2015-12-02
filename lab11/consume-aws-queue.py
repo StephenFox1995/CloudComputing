@@ -9,8 +9,8 @@ import sys
 # Get the keys from a specific url and then use them to connect to AWS Service 
 access_key_id = ""
 secret_access_key = ""
-keypart1 = urllib2.urlopen("http://ec2-52-30-7-5.eu-west-1.compute.amazonaws.com:81/key").read()
-access_key_id, secret_access_key = keypart1.split(':')
+key = urllib2.urlopen("http://ec2-52-30-7-5.eu-west-1.compute.amazonaws.com:81/key").read()
+access_key_id, secret_access_key = key.split(':')
 
 # Set up a connection to the AWS service. 
 conn = boto.sqs.connect_to_region("eu-west-1", aws_access_key_id=access_key_id, aws_secret_access_key=secret_access_key)
@@ -19,11 +19,11 @@ q_name = sys.argv[1]
 
 q = conn.get_queue(q_name)
 
-message = q.read()
+m = q.read()
 str = m.get_body()
 
 print("Message read: " + str)
 
-q.delete_message(message)
+q.delete_message(m)
 
-print("Message has been deleted")
+print("Message deleted from the queue")

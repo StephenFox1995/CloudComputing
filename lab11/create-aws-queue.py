@@ -21,4 +21,4 @@ q_name = sys.argv[1]
 # Create a new queue
 q = conn.create_queue(q_name)
 
-print ("> queue " + q_name + " has been created")
+print ("> Queue: " + q_name + " has been created")
